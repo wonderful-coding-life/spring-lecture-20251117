@@ -1,3 +1,14 @@
 spring:
   application:
     name: demo
+
+logging:
+  level:
+    com.example.demo: trace
+  file.name: ./log/app.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: ./log/app.backup.%d{yyyy-MM-dd}.%i.gz
+      max-history: 7
+      max-file-size: 10MB
+      total-size-cap: 1GB
