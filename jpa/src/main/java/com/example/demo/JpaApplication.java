@@ -1,0 +1,47 @@
+package com.example.demo;
+
+import com.example.demo.model.Member;
+import com.example.demo.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component
+@Slf4j
+public class JpaApplication implements ApplicationRunner {
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+//        List<Member> members = memberRepository.findAll();
+//        for (Member member : members) {
+//            log.info("회원 {}", member);
+//        }
+//
+//        Member member = memberRepository.findById(2L).orElseThrow();
+//        log.info("회원 with ID 2 {}", member);
+
+//        Member member = Member.builder()
+//                    .id(5L)
+//                    .name("김희선")
+//                    .email("HeesunKim@hanbit.co.kr")
+//                    .age(18).build();
+//        memberRepository.save(member);
+//        log.info("김희선 {}", member);
+
+//        memberRepository.deleteById(5L);
+
+//        List<Member> members = memberRepository.findByName("윤서준");
+//        for (Member member : members) {
+//            log.info("회원 {}", member);
+//        }
+
+        Member member = memberRepository.findByEmail("SeojunYoon@hanbit.co.kr");
+        log.info("회원 {}", member);
+    }
+}
