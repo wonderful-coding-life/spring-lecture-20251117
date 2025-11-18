@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.MemberMapper">
+    <resultMap id="memberResult" type="com.example.demo.model.Member">
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="age" property="age"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="memberResult">
+        SELECT * FROM member
+    </select>
+
+    <select id="selectAllOrderBy" resultMap="memberResult">
+        SELECT * FROM member ORDER BY ${order} ${direction}
+    </select>
+
+    <select id="selectById" resultMap="memberResult">
+        SELECT * FROM member WHERE id=#{id}
+    </select>
+
+    <select id="selectByEmail" resultMap="memberResult">
+        SELECT * FROM member WHERE email=#{email}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="member.id">
+        INSERT INTO member(name, email, age) VALUES(#{member.name}, #{member.email}, #{member.age})
+    </insert>
+
+    <update id="updateById">
+        UPDATE member SET name=#{member.name}, email=#{member.email}, age=#{member.age} WHERE id=#{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM member WHERE id=#{id}
+    </delete>
+</mapper>
+

@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: demo
+  datasource:
+    url: "jdbc:mysql://3.35.235.238:3306/tutor"
+    username: tutor
+    password: tutorp
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+#mybatis.mapper-locations: classpath:mapper/**/*.xml
