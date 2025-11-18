@@ -1,7 +1,10 @@
 package com.example.demo;
 
+import com.example.demo.model.Article;
 import com.example.demo.model.Member;
+import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -15,16 +18,19 @@ import java.util.List;
 public class JpaApplication implements ApplicationRunner {
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private ArticleRepository articleRepository;
 
     @Override
+    @Transactional
     public void run(ApplicationArguments args) throws Exception {
 //        List<Member> members = memberRepository.findAll();
 //        for (Member member : members) {
 //            log.info("회원 {}", member);
 //        }
 //
-//        Member member = memberRepository.findById(2L).orElseThrow();
-//        log.info("회원 with ID 2 {}", member);
+        Member member = memberRepository.findById(2L).orElseThrow();
+        log.info("회원 with ID 2 {}", member);
 
 //        Member member = Member.builder()
 //                    .id(5L)
@@ -41,7 +47,12 @@ public class JpaApplication implements ApplicationRunner {
 //            log.info("회원 {}", member);
 //        }
 
-        Member member = memberRepository.findByEmail("SeojunYoon@hanbit.co.kr");
-        log.info("회원 {}", member);
+//        Member member = memberRepository.findByEmail("SeojunYoon@hanbit.co.kr");
+//        log.info("회원 {}", member);
+
+//        List<Article> articles = articleRepository.findAll();
+//        for (Article article : articles) {
+//            log.info("게시글 {}", article);
+//        }
     }
 }

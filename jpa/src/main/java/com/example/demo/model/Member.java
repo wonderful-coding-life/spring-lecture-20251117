@@ -1,10 +1,9 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "member")
@@ -20,4 +19,7 @@ public class Member {
     @Column(name="email")
     private String email;
     private Integer age;
+    @ToString.Exclude
+    @OneToMany(mappedBy = "member")
+    private List<Article> articles;
 }
