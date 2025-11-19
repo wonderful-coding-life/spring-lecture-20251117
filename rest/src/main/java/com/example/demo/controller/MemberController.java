@@ -1,14 +1,18 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ArticleRequest;
+import com.example.demo.dto.ArticleResponse;
 import com.example.demo.dto.MemberRequest;
 import com.example.demo.dto.MemberResponse;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Member;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.service.ArticleService;
 import com.example.demo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.util.List;
 
@@ -18,6 +22,8 @@ public class MemberController {
     private MemberRepository memberRepository;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private ArticleService articleService;
 
 //    @PostMapping("/members")
 //    @ResponseStatus(code = HttpStatus.CREATED)
@@ -65,5 +71,10 @@ public class MemberController {
     public void deleteMembersById(@PathVariable("id") Long id) {
         Member member = memberRepository.findById(id).orElseThrow(NotFoundException::new);
         memberRepository.delete(member);
+    }
+
+    @PostMapping("/members/{id}/articles")
+    public ArticleResponse postArticles(@PathVariable("id") Long id, @RequestBody ArticleRequest articleRequest) {
+        return articleService.write(id, articleRequest);
     }
 }
