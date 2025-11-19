@@ -1,0 +1,4 @@
+spring:
+  application:
+    name: demo
+  h2.console.enabled: true
