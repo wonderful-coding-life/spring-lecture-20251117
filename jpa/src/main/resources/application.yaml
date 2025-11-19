@@ -5,3 +5,7 @@ spring:
 #    url: "jdbc:mysql://3.35.235.238:3306/tutor"
 #    username: tutor
 #    password: tutorp
+  jpa:
+    show-sql: true
+
+logging.level.org.hibernate.orm.jdbc.bind: TRACE

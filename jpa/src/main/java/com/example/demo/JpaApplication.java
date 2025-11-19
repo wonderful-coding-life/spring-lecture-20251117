@@ -27,23 +27,29 @@ public class JpaApplication implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
-        List<Member> members = memberRepository.findAll();
-        for (Member member : members) {
-            log.info("회원 {}", member);
-        }
+//        List<Member> members = memberRepository.findAll();
+//        for (Member member : members) {
+//            log.info("회원 {}", member);
+//        }
 
         Member member = memberRepository.findById(2L).orElseThrow();
         log.info("회원 with ID 2 {}", member);
-
+//
         Article article = Article.builder()
                 .title("스프링부트 강의 두번째 날...")
                 .description("마이바티스랑 JPA를 배웠다. 어렵다.... 어지럽다...")
-//                .created(LocalDateTime.now())
-//                .updated(LocalDateTime.now())
+                .created(LocalDateTime.now())
+                .updated(LocalDateTime.now())
                 .member(member)
                 .build();
         articleRepository.save(article);
-        log.info("게시글 {}", article);
+        log.info("#1 게시글 {}", article);
+        article.setTitle("스프링부트 강의 세번째 날...");
+        articleRepository.save(article);
+        log.info("#2 게시글 {}", article);
+        article.setTitle("스프링부트 강의 네번째 날...");
+        articleRepository.save(article);
+        log.info("#3 게시글 {}", article);
 
 //        Member member = Member.builder()
 //                    .id(5L)
