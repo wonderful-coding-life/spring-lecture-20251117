@@ -53,6 +53,11 @@ public class MemberService {
         return mapToMemberResponse(member);
     }
 
+    public MemberResponse findMemberByEmail(String email) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(NotFoundException::new);
+        return mapToMemberResponse(member);
+    }
+
     private MemberResponse mapToMemberResponse(Member member) {
         return MemberResponse.builder()
                 .id(member.getId())
