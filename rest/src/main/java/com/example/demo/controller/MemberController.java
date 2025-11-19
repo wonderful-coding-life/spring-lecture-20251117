@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.MemberRequest;
+import com.example.demo.dto.MemberResponse;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Member;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,26 +16,29 @@ import java.util.List;
 public class MemberController {
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private MemberService memberService;
+
+//    @PostMapping("/members")
+//    @ResponseStatus(code = HttpStatus.CREATED)
+//    public MemberResponse postMembers(@RequestBody MemberRequest memberRequest) {
+//        return memberService.subscribe(memberRequest);
+//    }
 
     @PostMapping("/members")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Member postMembers(@RequestBody Member member) {
-        memberRepository.save(member);
-        return member;
+    public List<MemberResponse> postMembers(@RequestBody List<MemberRequest> memberRequests) {
+        return memberService.subscribeBatch(memberRequests);
     }
 
     @GetMapping("/members")
-    public List<Member> getMembers(@RequestParam(name="name", required = false) String name) {
-        if (name == null || name.isBlank()) {
-            return memberRepository.findAll();
-        } else {
-            return memberRepository.findByName(name);
-        }
+    public List<MemberResponse> getMembers(@RequestParam(name="name", required = false) String name) {
+        return memberService.findMembers(name);
     }
 
     @GetMapping("/members/{id}")
-    public Member getMembersById(@PathVariable("id") Long id) {
-        return memberRepository.findById(id).orElseThrow(NotFoundException::new);
+    public MemberResponse getMembersById(@PathVariable("id") Long id) {
+        return memberService.findMemberById(id);
     }
 
     @PutMapping("/members/{id}")
