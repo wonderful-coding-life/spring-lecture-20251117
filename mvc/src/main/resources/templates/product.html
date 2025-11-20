@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base-layout :: layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <h1 th:text="${title}">회원목록</h1>
+    <h2 th:if="${showNow}" th:text="${#calendars.format(now, 'yyyy년 MM월 dd일')}">2022년</h2>
+    <table>
+        <tr><td>아이디</td><td>이름</td><td>설명</td><td>가격</td></tr>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}">100</td>
+            <td th:text="${product.name}">갤럭시와치</td>
+            <td th:text="${product.description}">삼성의 스마트와치</td>
+            <td th:text="${#numbers.formatInteger(product.price, 1, 'COMMA')}">230000</td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>

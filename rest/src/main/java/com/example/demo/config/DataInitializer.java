@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import java.util.List;
 
-@Component
+//@Component
 @Slf4j
 public class DataInitializer implements ApplicationRunner {
     @Autowired
@@ -36,7 +36,7 @@ public class DataInitializer implements ApplicationRunner {
                         .title("스프링 강의 " + i + "일차")
                         .description("스프링 강의가 재미있다.")
                         .member(member).build();
-                //articleRepository.save(article);
+                articleRepository.save(article);
             }
         }
 

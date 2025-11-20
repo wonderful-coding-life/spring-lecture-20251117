@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layout(content)">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div>
+    <p style="background-color: black; color: white; padding: 20px;">
+        캠퍼스 FILE EDIT HELP
+    </p>
+</div>
+<div th:replace="${content}"></div>
+<p style="background-color: black; color: white; padding: 20px;">
+    Copyright 2024 Wonderful Coding Life
+</p>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base-layout :: layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <table>
+        <tr><td>아이디</td><td>이름</td><td>이메일</td></tr>
+        <tr th:each="member : ${members}">
+            <td th:text="${member.id}">100</td>
+            <td th:text="${member.name}">갤럭시와치</td>
+            <td th:text="${member.email}">삼성의 스마트와치</td>
+            <td><a th:href="@{/member/edit(id=${member.id})}">수정</a></td>
+        </tr>
+    </table>
+    <a th:href="@{/member/add}">회원 추가</a>
+</section>
+</body>
+</html>
