@@ -15,5 +15,31 @@
         Copyright 2025 Wonderful Coding Life
     </p>
 </div>
+
+<nav th:fragment="pager(page, baseUrl, block)" th:if="${page != null and !page.empty}">
+    <ul class="pagination"
+        th:with="start=${T(java.lang.Math).floor(page.number / block) * block},
+               last=${(start + (block - 1) < page.totalPages ? start + (block - 1) : page.totalPages - 1)}">
+        <!-- 이전 -->
+        <li class="page-item" th:classappend="${page.first} ? ' disabled'">
+            <a class="page-link"
+               th:href="@{${baseUrl}(page=${page.number - 1})}">&laquo;</a>
+        </li>
+        <!-- 번호 -->
+        <li class="page-item"
+            th:each="pageNumber : ${#numbers.sequence(start, last)}"
+            th:classappend="${pageNumber == page.number} ? ' active'">
+            <a class="page-link"
+               th:text="${pageNumber + 1}"
+               th:href="@{${baseUrl}(page=${pageNumber})}">1</a>
+        </li>
+        <!-- 다음 -->
+        <li class="page-item" th:classappend="${page.last} ? ' disabled'">
+            <a class="page-link"
+               th:href="@{${baseUrl}(page=${page.number + 1})}">&raquo;</a>
+        </li>
+    </ul>
+</nav>
+
 </body>
 </html>

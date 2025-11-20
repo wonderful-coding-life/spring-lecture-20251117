@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:object="${memberForm}" th:action="@{/subscribe}" method="post">
+    <input type="text" name="name" th:value="*{name}"/><br>
+    <div th:errors="*{name}">이름 다시 입력</div>
+    <input type="text" name="email" th:value="*{email}"/><br>
+    <div th:errors="*{email}">이메일 다시 입력</div>
+    <input type="password" name="password"/><br>
+    <div th:errors="*{password}">이메일 다시 입력</div>
+    <input type="password" name="passwordConfirm"/>
+    <div th:errors="*{passwordConfirm}">이메일 다시 입력</div>
+    <button>가입</button>
+</form>
+</body>
+</html>
