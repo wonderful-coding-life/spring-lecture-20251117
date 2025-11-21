@@ -5,10 +5,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.content.Media;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.util.MimeTypeUtils;
 
 @SpringBootTest
 public class OpenAiChatModelTests {
@@ -31,5 +36,23 @@ public class OpenAiChatModelTests {
         log.info("answer = {}", response.getResult().getOutput().getText());
     }
 
-    
+    @Test
+    public void testChatModelWithImage() {
+        var resource = new ClassPathResource("/image/Disney_World_1.jpg");
+        var media = Media.builder()
+                .data(resource)
+                .mimeType(MimeTypeUtils.IMAGE_JPEG)
+                .build();
+        var message = UserMessage.builder()
+                .text("사진 속의 멋진 풍경을 시로 써 주세요.")
+                .media(media)
+                .build();
+        var chatOptions = OpenAiChatOptions.builder()
+                .model("gpt-5.1").build();
+
+        var prompt = new Prompt(message, chatOptions);
+
+        var response = chatModel.call(prompt);
+        log.info("{}", response.getResult().getOutput().getText());
+    }
 }
