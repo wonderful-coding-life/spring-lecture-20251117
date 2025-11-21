@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마케팅</title>
+</head>
+<body>
+<form th:action="@{/marketing}" method="post">
+    <input type="text" name="name"/><br>
+    <input type="text" name="price"/><br>
+    <input type="text" name="link"/><br>
+    <textarea name="features" rows="8" cols="120"></textarea><br>
+    <button>문구생성</button>
+</form>
+</body>
+</html>
