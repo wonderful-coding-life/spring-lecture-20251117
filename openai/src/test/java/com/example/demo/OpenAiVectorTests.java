@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
+import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -75,13 +77,22 @@ public class OpenAiVectorTests {
 
     @Test
     public void testVectorStoreWrite() {
-        var documents = texts.stream().map(text -> new Document(text)).toList();
+        List<Document> documents = texts.stream().map(text -> new Document(text)).toList();
+        vectorStore.write(documents);
+    }
+
+    @Test
+    public void testVectorStoreWriteWithPdfReader() {
+        var reader = new PagePdfDocumentReader("classpath:/인공지능_시대의_예술.pdf");
+        List<Document> documents = reader.read();
+//        var splitter = new TokenTextSplitter();
+//        var splitted = splitter.split(documents);
         vectorStore.write(documents);
     }
 
     @Test
     public void testVectorStoreSimilaritySearch() {
-        var question = "배터리 수명이 어떻게 돼죠?";
+        var question = "인공지능을 사용하면 일반 사람들도 예술가가 될 수 있을까?";
         var documents = vectorStore.similaritySearch(question);
 //        for (var document : documents) {
 //            log.info("{}", document.getText());
